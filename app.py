@@ -23,12 +23,12 @@ def predict():
         preg = int(request.form['Pregnancies'])
         glucose = int(request.form['Glucose'])
         bp = int(request.form['BloodPressure'])
-        st = int(request.form['SkinThickness'])
+        bmi = int(request.form['BMI'])
         dpf = int(request.form['DiabetesPedigreeFunction'])
         age = float(request.form['Age'])
        
         
-        data = np.array([[preg, glucose, bp, st, dpf, age]])
+        data = np.array([[preg, glucose, bp, bmi, dpf, age]])
         my_prediction = model.predict(data)
         return render_template('result.html', prediction=my_prediction)
 
