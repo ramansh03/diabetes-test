@@ -1,6 +1,12 @@
 <!doctype html>
 <html>
    <body>
-       <h1> {{ prediction_text }}</h1>
+      <div class="results">
+			{% if prediction==1 %}
+				<h1>Prediction: <span class='danger'>You have DIABETES.</span></h1>
+			{% elif prediction==0 %}
+				<h1>Prediction: <span class='safe'>You DON'T have diabetes.</span></h1>
+			{% endif %}
+		</div>
    </body>
 </html>
