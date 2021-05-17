@@ -4,49 +4,33 @@ from flask import request
 import numpy as np
 import sklearn
 import pickle
-from flask_cors import cross_origin
+
+
+file='rf_diabetes.pkl'
+model=pickle.load(open(file,'rb'))
+
 
 app = Flask(__name__, template_folder='templates')
 
 @app.route("/")
-@cross_origin()
 @app.route("/Diabetes")
 def diabetes():
     return render_template("diabetes.html")
 
-'''def ValuePredictor(to_predict_list, size):
-    to_predict = np.array(to_predict_list).reshape(1,size)
-    if(size==6):
-        model = pickle.load(open("rf_diabetes.pkl", "rb"))
-        result = model.predict(to_predict)
-    return result[0]'''
-
 @app.route('/predict', methods = ["POST"])
 def predict():
-    '''if request.method == "POST":
-        to_predict_list = request.form.to_dict()
-        to_predict_list = list(to_predict_list.values())
-        to_predict_list = list(map(float, to_predict_list))
-         #diabetes
-        if(len(to_predict_list)==6):
-            result = ValuePredictor(to_predict_list,6)
-    
-    if(int(result)==1):
-        prediction = "Sorry you chances of getting the disease. Please consult the doctor immediately"
-    else:
-        prediction = "No need to fear. You have no dangerous symptoms of the disease"
-    return(render_template("result.html", prediction_text=prediction))'''
     if(request.method=='POST'):
-        preg = int(request.form['pregnancies'])
-        glucose = int(request.form['glucose'])
-        bp = int(request.form['bloodpressure'])
-        st = int(request.form['skinthickness'])
-        insulin = int(request.form['insulin'])
-        bmi = float(request.form['bmi'])
+        preg = int(request.form['Pregnancies'])
+        glucose = int(request.form['Glucose'])
+        bp = int(request.form['BloodPressure'])
+        st = int(request.form['SkinThickness'])
+        dpf = int(request.form['DiabetesPedigreeFunction'])
+        age = float(request.form['Age'])
        
         
-        data = np.array([[preg, glucose, bp, st, insulin, bmi, dpf, age]])
-        my_prediction = rf_random.predict(data)
+        data = np.array([[preg, glucose, bp, st, dpf, age]])
+        my_prediction = model.predict(data)
+        return render_template('result.html', prediction=my_prediction)
 
 if __name__ == "__main__":
     app.run(debug=True)
