@@ -8,7 +8,7 @@ app = Flask(__name__, template_folder='templates')
 @app.route("/")
 
 @app.route("/Diabetes")
-def cancer():
+def diabetes():
     return render_template("diabetes.html")
 
 def ValuePredictor(to_predict_list, size):
