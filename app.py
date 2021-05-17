@@ -17,7 +17,7 @@ app = Flask(__name__, template_folder='templates')
 def diabetes():
     return render_template("diabetes.html")
 
-@app.route('/predict', methods = ["POST"])
+@app.route('/predict', methods = ["GET","POST"])
 def predict():
     if(request.method=='POST'):
         preg = int(request.form['Pregnancies'])
