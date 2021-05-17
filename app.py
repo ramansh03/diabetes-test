@@ -14,8 +14,8 @@ def diabetes():
 def ValuePredictor(to_predict_list, size):
     to_predict = np.array(to_predict_list).reshape(1,size)
     if(size==6):
-        loaded_model = joblib.load(r'C:\Users\ASUS\Desktop\Diabetes test\rf_diabetes.pkl')
-        result = loaded_model.predict(to_predict)
+        model = pickle.load(open("rf_diabetes.pkl", "rb"))
+        result = model.predict(to_predict)
     return result[0]
 
 @app.route('/predict', methods = ["POST"])
